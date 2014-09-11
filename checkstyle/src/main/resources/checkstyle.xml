@@ -204,6 +204,6 @@
     <module name="RegexpHeader">
         <property name="fileExtensions" value="java"/>
         <property name="severity" value="error"/>
-        <property name="header" value="^/\*$\n^ \* Copyright \(c\) \d{4} by Roler Data Transfer Services, Inc\., All rights reserved\.$\n^ \* This source code, and resulting software, is the confidential and proprietary information$\n^ \* \(&quot;Proprietary Information&quot;\) and is the intellectual property \(&quot;Intellectual Property&quot;\)$\n^ \* of Roler Data Transfer Services, Inc\. \(&quot;The Company&quot;\)\. You shall not disclose such Proprietary Information and$\n^ \* shall use it only in accordance with the terms and conditions of any and all license$\n^ \* agreements you have entered into with The Company\.$\n^ \*/$\n"/>
+        <property name="header" value="^/\*$\n^ \* Copyright \(c\) \d{4} by ArcBees Inc.\., All rights reserved\.$\n^ \* This source code, and resulting software, is the confidential and proprietary information$\n^ \* \(&quot;Proprietary Information&quot;\) and is the intellectual property \(&quot;Intellectual Property&quot;\)$\n^ \* of Roler Data Transfer Services, Inc\. \(&quot;The Company&quot;\)\. You shall not disclose such Proprietary Information and$\n^ \* shall use it only in accordance with the terms and conditions of any and all license$\n^ \* agreements you have entered into with The Company\.$\n^ \*/$\n"/>
     </module>
 </module>
