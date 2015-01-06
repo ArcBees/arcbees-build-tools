@@ -4,6 +4,9 @@
 
 <module name="Checker">
     <property name="severity" value="warning"/>
+    <property name="localeCountry" value="CA"/>
+    <property name="localeLanguage" value="en"/>
+
     <module name="TreeWalker">
         <module name="FileContentsHolder"/>
         <module name="DeclarationOrder"/>
