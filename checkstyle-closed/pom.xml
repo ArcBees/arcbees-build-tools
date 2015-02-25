@@ -12,8 +12,6 @@
     <artifactId>checkstyle-closed</artifactId>
 
     <properties>
-        <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
-
         <checkstyle.header.file>/closedsource.java.header</checkstyle.header.file>
     </properties>
 
