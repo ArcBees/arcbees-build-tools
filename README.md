@@ -3,8 +3,9 @@ This repository contains Arcbees build tools needed in order to build all Arcbee
 
 Module included:
   checkstyle
-  
-  ##Thanks to
+
+##Thanks to
+
 [![Arcbees.com](http://i.imgur.com/HDf1qfq.png)](http://arcbees.com)
 
 [![Atlassian](http://i.imgur.com/BKkj8Rg.png)](https://www.atlassian.com/)
