@@ -9,7 +9,6 @@
 
     <module name="TreeWalker">
         <module name="FileContentsHolder"/>
-        <module name="DeclarationOrder"/>
         <module name="EqualsHashCode"/>
         <module name="ExplicitInitialization"/>
         <module name="GenericWhitespace"/>
@@ -121,6 +120,9 @@
         <module name="TypecastParenPad">
             <property name="tokens" value="RPAREN,TYPECAST"/>
         </module>
+
+        <!-- Custom checks -->
+        <module name="com.arcbees.checkstyle.checks.DeclarationOrderCheck"/>
     </module>
 
     <module name="Translation"/>
