@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.arcbees.checkstyle.checks.utils;
+package com.arcbees.checkstyle.checks.modifiers;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;

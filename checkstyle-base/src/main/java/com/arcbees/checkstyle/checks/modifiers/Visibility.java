@@ -14,31 +14,45 @@
  * the License.
  */
 
-package com.arcbees.checkstyle.checks.utils;
+package com.arcbees.checkstyle.checks.modifiers;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public enum Final {
-    FINAL,
-    NOT_FINAL,
-    ANY,
-    NOT_SUPPORTED;
+public enum Visibility {
+    PUBLIC(TokenTypes.LITERAL_PUBLIC),
+    PROTECTED(TokenTypes.LITERAL_PROTECTED),
+    PACKAGE_PRIVATE(-1),
+    PRIVATE(TokenTypes.LITERAL_PRIVATE),
+    ANY(-1),
+    NOT_SUPPORTED(-1);
 
-    public static Final fromModifiers(DetailAST modifiersAst) {
+    private final int tokenType;
+
+    Visibility(int tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    public static Visibility fromModifiers(DetailAST modifiersAst) {
         assert modifiersAst.getType() == TokenTypes.MODIFIERS;
 
-        return modifiersAst.findFirstToken(TokenTypes.FINAL) != null ? FINAL : NOT_FINAL;
+        for (Visibility visibility : Visibility.values()) {
+            if (modifiersAst.findFirstToken(visibility.tokenType) != null) {
+                return visibility;
+            }
+        }
+
+        return PACKAGE_PRIVATE;
+    }
+
+    public boolean matches(Visibility other) {
+        return this == other
+                || (this == ANY && other != NOT_SUPPORTED)
+                || (other == ANY && this != NOT_SUPPORTED);
     }
 
     @Override
     public String toString() {
         return name().toLowerCase();
-    }
-
-    public boolean matches(Final other) {
-        return this == other
-                || (this == ANY && other != NOT_SUPPORTED)
-                || (other == ANY && this != NOT_SUPPORTED);
     }
 }

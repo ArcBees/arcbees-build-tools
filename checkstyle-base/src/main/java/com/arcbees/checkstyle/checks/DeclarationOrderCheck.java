@@ -17,14 +17,13 @@
 package com.arcbees.checkstyle.checks;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
-import com.arcbees.checkstyle.checks.utils.Context;
-import com.arcbees.checkstyle.checks.utils.Declaration;
-import com.arcbees.checkstyle.checks.utils.DeclarationType;
-import com.arcbees.checkstyle.checks.utils.Defaults;
+import com.arcbees.checkstyle.checks.modifiers.DeclarationType;
+import com.arcbees.checkstyle.checks.representation.Declaration;
 import com.puppycrawl.tools.checkstyle.api.Check;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -34,22 +33,27 @@ public class DeclarationOrderCheck extends Check {
     private static final String EXCEPTION_MESSAGE_KEY = "definition.order.exception";
     private static final int[] TOKEN_TYPES;
 
-    private static boolean canExecute = true;
+    private static boolean fatalError = false;
 
     static {
         DeclarationType[] declarationTypes = DeclarationType.values();
+        List<Integer> tokenTypes = new ArrayList<>(declarationTypes.length + 1);
+        tokenTypes.add(TokenTypes.OBJBLOCK);
 
-        TOKEN_TYPES = new int[declarationTypes.length + 1];
-        TOKEN_TYPES[0] = TokenTypes.OBJBLOCK;
+        for (DeclarationType type : declarationTypes) {
+            tokenTypes.addAll(type.getTokenTypes());
+        }
 
-        for (int i = 0; i < declarationTypes.length; ++i) {
-            TOKEN_TYPES[i + 1] = declarationTypes[i].getTokenType();
+        TOKEN_TYPES = new int[tokenTypes.size()];
+        for (int i = 0; i < tokenTypes.size(); ++i) {
+            TOKEN_TYPES[i] = tokenTypes.get(i);
         }
     }
 
     private Boolean oneLogPerFile;
     // TODO: Allow configuration by XML
-    private List<Declaration> declarationOrder;
+    // TODO: Support specification of 'everything else'. Using ANY for all modifiers is not possible
+    private Collection<Declaration> declarationOrder;
     private Context context;
 
     @SuppressWarnings("unused" /* Accessed by reflection from checkstyle */)
@@ -75,27 +79,27 @@ public class DeclarationOrderCheck extends Check {
 
     @Override
     public void beginTree(DetailAST rootAST) {
-        if (canExecute) {
+        if (!fatalError) {
             context = new Context(declarationOrder, null);
         }
     }
 
     @Override
     public void visitToken(DetailAST ast) {
-        if (canExecute) {
+        if (!fatalError) {
             try {
                 handleAst(ast);
             } catch (RuntimeException e) {
                 log(ast, EXCEPTION_MESSAGE_KEY, e);
                 e.printStackTrace();
-                canExecute = false;
+                fatalError = true;
             }
         }
     }
 
     @Override
     public void leaveToken(DetailAST ast) {
-        if (canExecute && ast.getType() == TokenTypes.OBJBLOCK) {
+        if (!fatalError && ast.getType() == TokenTypes.OBJBLOCK) {
             context = context.close();
         }
     }
@@ -109,13 +113,10 @@ public class DeclarationOrderCheck extends Check {
     private void initDeclarationOrder() {
         if (declarationOrder == null) {
             declarationOrder = Defaults.getDefaultDeclarationOrder();
-        } else {
-            // Remove duplicates. Wildcards are duplicates of everything.
-            // List is required to use indexOf(). Further optimization may help use a set directly.
-            declarationOrder = new ArrayList<>(new HashSet<>(declarationOrder));
         }
 
-        declarationOrder = Collections.unmodifiableList(declarationOrder);
+        // Remove duplicates. Wildcards are duplicates of everything in the same modifiers.
+        declarationOrder = Collections.unmodifiableCollection(new LinkedHashSet<>(declarationOrder));
     }
 
     private void handleAst(DetailAST ast) {

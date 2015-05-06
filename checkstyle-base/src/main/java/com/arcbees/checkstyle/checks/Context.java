@@ -14,10 +14,12 @@
  * the License.
  */
 
-package com.arcbees.checkstyle.checks.utils;
+package com.arcbees.checkstyle.checks;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
+
+import com.arcbees.checkstyle.checks.representation.Declaration;
 
 public class Context {
     private final Context parent;
@@ -26,7 +28,7 @@ public class Context {
     private boolean failed;
 
     public Context(
-            List<Declaration> declarationOrder,
+            Collection<Declaration> declarationOrder,
             Context parent) {
         this.parent = parent;
         this.declarationOrder = new LinkedList<>(declarationOrder);
