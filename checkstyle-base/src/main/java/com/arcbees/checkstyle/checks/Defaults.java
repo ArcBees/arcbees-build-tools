@@ -42,20 +42,45 @@ public final class Defaults {
     private static final boolean ONE_ERROR_PER_FILE = false;
 
     private static final List<Declaration> DECLARATION_ORDER = Arrays.asList(
-            newDeclaration(INTERFACE).build(),
+            newDeclaration(INTERFACE).withVisibility(PUBLIC).build(),
+            newDeclaration(INTERFACE).withVisibility(PROTECTED).build(),
+            newDeclaration(INTERFACE).withVisibility(PACKAGE_PRIVATE).build(),
+            newDeclaration(INTERFACE).withVisibility(PRIVATE).build(),
 
-            newDeclaration(ENUM).build(),
+            newDeclaration(ENUM).withVisibility(PUBLIC).build(),
+            newDeclaration(ENUM).withVisibility(PROTECTED).build(),
+            newDeclaration(ENUM).withVisibility(PACKAGE_PRIVATE).build(),
+            newDeclaration(ENUM).withVisibility(PRIVATE).build(),
 
-            newDeclaration(CLASS).withStatic(STATIC).build(),
-            newDeclaration(CLASS).withStatic(NOT_STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PUBLIC).withStatic(STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PROTECTED).withStatic(STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PACKAGE_PRIVATE).withStatic(STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PRIVATE).withStatic(STATIC).build(),
 
-            newDeclaration(FIELD).withStatic(STATIC).withFinal(FINAL).build(),
-            newDeclaration(FIELD).withStatic(STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(CLASS).withVisibility(PUBLIC).withStatic(NOT_STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PROTECTED).withStatic(NOT_STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PACKAGE_PRIVATE).withStatic(NOT_STATIC).build(),
+            newDeclaration(CLASS).withVisibility(PRIVATE).withStatic(NOT_STATIC).build(),
+
+            newDeclaration(FIELD).withVisibility(PUBLIC).withStatic(STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PUBLIC).withStatic(STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PROTECTED).withStatic(STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PROTECTED).withStatic(STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PACKAGE_PRIVATE).withStatic(STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PACKAGE_PRIVATE).withStatic(STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PRIVATE).withStatic(STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PRIVATE).withStatic(STATIC).withFinal(NOT_FINAL).build(),
 
             newDeclaration(INITIALIZER).withStatic(STATIC).build(),
 
-            newDeclaration(FIELD).withStatic(NOT_STATIC).withFinal(FINAL).build(),
-            newDeclaration(FIELD).withStatic(NOT_STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PUBLIC).withStatic(NOT_STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PUBLIC).withStatic(NOT_STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PROTECTED).withStatic(NOT_STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PROTECTED).withStatic(NOT_STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PACKAGE_PRIVATE).withStatic(NOT_STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PACKAGE_PRIVATE).withStatic(NOT_STATIC).withFinal(NOT_FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PRIVATE).withStatic(NOT_STATIC).withFinal(FINAL).build(),
+            newDeclaration(FIELD).withVisibility(PRIVATE).withStatic(NOT_STATIC).withFinal(NOT_FINAL).build(),
 
             newDeclaration(INITIALIZER).withStatic(NOT_STATIC).build(),
 
